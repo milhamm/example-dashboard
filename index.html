@@ -1,0 +1,90 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NYC Property Sales Examples</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="heading">
+      <div class="container heading-content">
+        <div>
+          <h1>NYC Property Sales</h1>
+          <p>
+            Properties that sold in New York City over a 12-month period from
+            Sept 2016 to Aug 2017
+          </p>
+        </div>
+        <div>
+          <select name="borough">
+            <option value="a">Value A</option>
+            <option value="b">Value B</option>
+            <option value="c">Value C</option>
+            <option value="d">Value D</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero card">
+        <div class="overview">
+          <dl>
+            <dt>Total Sales</dt>
+            <dd>50,198,058,138</dd>
+          </dl>
+          <dl>
+            <dt>Total Units</dt>
+            <dd>70,145</dd>
+          </dl>
+          <dl>
+            <dt>Residential Units</dt>
+            <dd>63,980</dd>
+          </dl>
+          <dl>
+            <dt>Commercial Units</dt>
+            <dd>5,665</dd>
+          </dl>
+        </div>
+        <div class="sales-chart">
+          <h2>Total Monthly Sales</h2>
+          <canvas id="totalMontlySales"></canvas>
+        </div>
+      </section>
+      <section class="reports">
+        <div class="card">
+          <h2>Property Type Sales</h2>
+          <canvas id="propertyTypeSales"></canvas>
+        </div>
+        <div class="card">
+          <h2>Most Orders by Year Built</h2>
+          <div class="chart"></div>
+        </div>
+        <div class="card">
+          <h2>Top Building Class Category Sales</h2>
+          <div class="chart"></div>
+        </div>
+        <div class="card">
+          <h2>Top Neighborhood Category Sales</h2>
+          <div class="chart"></div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <address>
+        <a href="https://x.com/gluekol"> @gluekol</a>
+        <span>-</span>
+        <a href="https://aang.dev" target="_blank" rel="noopener noreferrer"
+          >aang.dev
+        </a>
+      </address>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>
