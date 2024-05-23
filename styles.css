@@ -183,3 +183,25 @@ footer * {
     grid-template-columns: 1fr;
   }
 }
+
+.searchbar {
+  display: inline;
+  border: 1px solid gray;
+  padding: 1px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+}
+.searchbar input {
+  border: none;
+  height: 32px;
+  flex: 1;
+  background-color: transparent;
+}
+
+.searchbar input:focus-visible {
+  border: none;
+  outline: none;
+}
