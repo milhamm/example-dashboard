@@ -1,8 +1,7 @@
 async function fetchData() {
-  const response = await fetch(
+  const data = await fetch(
     "https://raw.githubusercontent.com/rdsarjito/nyc_dataset/main/nyc_dataset.json"
-  );
-  const data = await response.json();
+  ).then((res) => res.json());
   return data;
 }
 
@@ -28,27 +27,36 @@ const monthNames = [
   "Dec",
 ];
 
+function normalizeData(data, startDate, endDate) {
+  return data.reduce((acc, curr) => {
+    const [date, month, year] = curr["SALE DATE"]
+      .split("/")
+      .map((val) => Number(val));
+    const convertedDate = new Date(year, month - 1, date);
+
+    const newItem = {
+      ...curr,
+      date: convertedDate,
+      dateValue: { date, month: month - 1, year },
+    };
+
+    if (newItem.date >= startDate && newItem.date <= endDate) {
+      if (!acc[curr.BOROUGH]) {
+        acc[curr.BOROUGH] = [newItem];
+      } else {
+        acc[curr.BOROUGH].push(newItem);
+      }
+    }
+
+    return acc;
+  }, {});
+}
+
 function createFilter(data, startDate, endDate) {
+  // Cara untuk mendapatkan unique borough list
   const uniqueBorough = Array.from(new Set(data.map((item) => item.BOROUGH)));
 
-  const filteredData = data
-    .map((item) => {
-      const [date, month, year] = item["SALE DATE"]
-        .split("/")
-        .map((val) => Number(val));
-
-      const convertedDate = new Date(year, month - 1, date);
-
-      const newItem = {
-        ...item,
-        date: convertedDate,
-        dateValue: { date, month: month - 1, year },
-      };
-      return newItem;
-    })
-    .filter((item) => {
-      return item.date >= startDate && item.date <= endDate;
-    });
+  const filteredData = normalizeData(data, startDate, endDate);
 
   function getMonthlySales() {
     const scale = d3
@@ -68,8 +76,8 @@ function createFilter(data, startDate, endDate) {
         const isOnMonthRange = (data) =>
           data.dateValue.month === month && data.dateValue.year === year;
 
-        const data = filteredData.filter(
-          (data) => data.BOROUGH === borough && isOnMonthRange(data)
+        const data = filteredData[borough].filter((data) =>
+          isOnMonthRange(data)
         );
 
         const salesTotal = sum(data, "SALE PRICE");
@@ -95,8 +103,10 @@ function createFilter(data, startDate, endDate) {
 (async function main() {
   const chart = await fetchData();
   const startDate = new Date("2016-09-01");
-  const endDate = new Date("2017-08-31");
+  const endDate = new Date("2017-05-31");
   const filter = createFilter(chart, startDate, endDate);
+
+  console.log({ chart });
 
   console.log(filter.getMonthlySales());
 
@@ -131,6 +141,9 @@ function createMontlySaleChart(filter) {
     },
     options: {
       aspectRatio: 10 / 4,
+      interaction: {
+        mode: "index",
+      },
       scales: {
         y: {
           beginAtZero: true,
