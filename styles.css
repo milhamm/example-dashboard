@@ -159,6 +159,24 @@ footer * {
   color: hsl(var(--muted-foreground));
 }
 
+#map {
+  height: 600px;
+  background-color: rebeccapurple;
+}
+
+.info {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.info h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
 @media screen and (max-width: 480px) {
   .heading-content {
     flex-direction: column;
@@ -182,4 +200,26 @@ footer * {
   .reports {
     grid-template-columns: 1fr;
   }
+}
+
+.searchbar {
+  display: inline;
+  border: 1px solid gray;
+  padding: 1px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+}
+.searchbar input {
+  border: none;
+  height: 32px;
+  flex: 1;
+  background-color: transparent;
+}
+
+.searchbar input:focus-visible {
+  border: none;
+  outline: none;
 }
